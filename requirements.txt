@@ -1,0 +1,7 @@
+Flask
+Flask-Login
+Flask-SQLAlchemy
+pyodbc
+torch
+opencv-python
+pandas

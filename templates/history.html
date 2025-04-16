@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+
+{% block title %}Historique des inspections{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Historique des inspections</h2>
+
+<table class="table table-bordered table-hover bg-white shadow-sm">
+    <thead class="table-dark">
+        <tr>
+            <th>Référence</th>
+            <th>RF</th>
+            <th>ORF</th>
+            <th>Face</th>
+            <th>Défaut</th>
+            <th>Type de défaut</th>
+            <th>Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for test in tests %}
+            <tr>
+                <td>{{ test.reference }}</td>
+                <td>{{ test.rf_value or '—' }}</td>
+                <td>{{ test.orf_value or '—' }}</td>
+                <td>{{ test.face }}</td>
+                <td>
+                    {% if test.defaillante %}
+                        <span class="badge bg-danger">Oui</span>
+                    {% else %}
+                        <span class="badge bg-success">Non</span>
+                    {% endif %}
+                </td>
+                <td>{{ test.defauts or '—' }}</td>
+                <td>{{ test.date_test.strftime('%Y-%m-%d %H:%M') if test.date_test else '—' }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<a href="{{ url_for('inspect') }}" class="btn btn-secondary mt-3">⬅ Retour à l'inspection</a>
+{% endblock %}

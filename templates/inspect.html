@@ -1,0 +1,79 @@
+{% extends "layout.html" %}
+
+{% block title %}Inspection PCBA{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+
+    <h2 class="mb-4">🔍 Inspection d’une carte PCBA</h2>
+
+    <form method="POST" enctype="multipart/form-data" class="row g-3">
+        <div class="col-md-4">
+            <label class="form-label">Référence :</label>
+            <input type="text" name="reference" class="form-control" required>
+        </div>
+
+        <div class="col-md-4">
+            <label class="form-label">RF :</label>
+            <input type="text" name="rf_value" class="form-control" required>
+        </div>
+
+        <div class="col-md-4">
+            <label class="form-label">ORF :</label>
+            <input type="text" name="orf_value" class="form-control" required>
+        </div>
+
+        <div class="col-md-4">
+            <label class="form-label">Face :</label>
+            <select name="face" class="form-select" required>
+                <option value="top">Top</option>
+                <option value="bottom">Bottom</option>
+            </select>
+        </div>
+
+        <div class="col-md-4">
+            <label class="form-label">Image :</label>
+            <input type="file" name="image" class="form-control" accept="image/*" required>
+        </div>
+
+        <div class="col-12 mt-3">
+            <button type="submit" class="btn btn-primary">🚀 Inspecter</button>
+        </div>
+    </form>
+
+    {% if image_inspectee %}
+        <hr class="my-5">
+        <h3>🧾 Résultat – Face {{ face }}</h3>
+
+        {% if face == "Top" %}
+            <img src="{{ url_for('static', filename=top_result) }}" class="img-fluid border shadow-sm" alt="Résultat Top">
+        {% else %}
+            <img src="{{ url_for('static', filename=bottom_result) }}" class="img-fluid border shadow-sm" alt="Résultat Bottom">
+        {% endif %}
+
+        <div class="mt-4">
+            {% if liste_defauts_colores %}
+                <h4 class="text-danger">Défauts détectés :</h4>
+                <ul class="list-group">
+                    {% for defaut in liste_defauts_colores %}
+                        <li class="list-group-item" style="color: {{ defaut.couleur }};">
+                            {{ defaut.nom }} — {{ defaut.confiance }}
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <div class="alert alert-success mt-3"><strong>Aucun défaut détecté.</strong></div>
+            {% endif %}
+        </div>
+
+        <div class="mt-4">
+            <p><strong>📌 RF :</strong> {{ rf_value }}</p>
+            <p><strong>📌 ORF :</strong> {{ orf_value }}</p>
+            <p><strong>📌 Référence :</strong> {{ reference }}</p>
+        </div>
+
+        <a href="{{ url_for('history') }}" class="btn btn-outline-secondary mt-3">📜 Voir l’historique</a>
+    {% endif %}
+
+</div>
+{% endblock %}

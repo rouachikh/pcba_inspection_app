@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+
+{% block title %}Créer un compte{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+
+            <div class="card shadow">
+                <div class="card-body">
+                    <h2 class="mb-4 text-center">📝 Inscription</h2>
+
+                    <form method="POST">
+                        <div class="mb-3">
+                            <label class="form-label">Nom d'utilisateur :</label>
+                            <input type="text" name="username" class="form-control" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Mot de passe :</label>
+                            <input type="password" name="password" class="form-control" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Statut :</label>
+                            <select name="statut" class="form-select" required>
+                                <option value="operateur">Opérateur</option>
+                                <option value="admin">Administrateur</option>
+                            </select>
+                        </div>
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-success">✅ S'inscrire</button>
+                        </div>
+                    </form>
+
+                    <div class="text-center mt-3">
+                        <p>Déjà un compte ? <a href="{{ url_for('login') }}">Se connecter</a></p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

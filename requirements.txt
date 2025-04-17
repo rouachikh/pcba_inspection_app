@@ -6,4 +6,6 @@ torch
 opencv-python
 pandas
 gunicorn
+ultralytics
+
 

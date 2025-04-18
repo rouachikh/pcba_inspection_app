@@ -70,11 +70,15 @@ def load_user(user_id):
 def index():
     return redirect(url_for('login'))
 
+@app.route('/login')
+def login():
+    return "<h2>Page de connexion &agrave; venir...</h2>"
+
 @app.route('/admin/db-status')
 @login_required
 def db_status():
     if current_user.statut != 'admin':
-        flash("Accès refusé.")
+        flash("Acc&egrave;s refus&eacute;.")
         return redirect(url_for('index'))
 
     user_count = User.query.count()
